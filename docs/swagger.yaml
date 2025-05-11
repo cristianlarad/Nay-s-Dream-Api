@@ -1,0 +1,189 @@
+basePath: /api/v1
+definitions:
+  form.ToDoForm:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  model.ICreateToDo:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      priority:
+        type: string
+      status:
+        type: string
+    required:
+    - description
+    - name
+    - priority
+    type: object
+  model.ToDo:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  model.User:
+    properties:
+      id:
+        type: string
+      password:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+      username:
+        type: string
+    type: object
+host: localhost:8585
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample swagger
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /todo:
+    get:
+      consumes:
+      - application/json
+      description: Get all todo items
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.ToDo'
+            type: array
+      summary: Get all todos
+      tags:
+      - todo
+    post:
+      consumes:
+      - application/json
+      description: Create a new todo item
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Todo object
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/model.ICreateToDo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ICreateToDo'
+      summary: Create a new todo
+      tags:
+      - todo
+  /todo/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get a todo item by its ID
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ToDo'
+      summary: Get todo by ID
+      tags:
+      - todo
+    put:
+      consumes:
+      - application/json
+      description: Update a todo item by its ID
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Todo update object
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/form.ToDoForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ToDo'
+      summary: Update a todo
+      tags:
+      - todo
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: Get all user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
