@@ -22,7 +22,7 @@ func (app Routes) StartGin() {
 	r.Use(gin.Logger())
 	r.Use(middlewares.NewRecovery())
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowOrigins:     []string{"https://nay-sdreams-production.up.railway.app"},
 		AllowMethods:     []string{"*"},
 		AllowHeaders:     []string{"*"},
 		ExposeHeaders:    []string{"*"},
