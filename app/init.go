@@ -22,7 +22,7 @@ func (app Routes) StartGin() {
 	r.Use(gin.Logger())
 	r.Use(middlewares.NewRecovery())
 	r.Use(cors.New(cors.Config{
-		AllowAllOrigins:  true,
+		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{"*"},
 		AllowHeaders:     []string{"*"},
 		ExposeHeaders:    []string{"*"},
