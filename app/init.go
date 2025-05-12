@@ -62,5 +62,5 @@ func (app Routes) StartGin() {
 		context.File("./template/index.html")
 	})
 
-	r.Run(":" + os.Getenv("PORT"))
+	r.Run(":8080")
 }
